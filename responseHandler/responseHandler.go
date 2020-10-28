@@ -1,12 +1,6 @@
 package responsehandler
 
-import (
-	"encoding/json"
-
-	"github.com/dev-jb/response-management-go/status"
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-	pb "github.com/hyperledger/fabric/protos/peer"
-)
+import "encoding/json"
 
 //ErrorMessage Struct
 type ErrorMessage struct {
@@ -29,20 +23,30 @@ type Response struct {
 }
 
 // HandleResponse function to handle all the errors and success responses.
-func HandleResponse(message string, statusCode int32, args interface{}) pb.Response {
+func HandleResponse(message string, statusCode int32, args interface{}) Response {
+	// response := Response{}
+	// response.StatusCode = statusCode
+	// response.Message = message
+	// response.Result = args
+	responseAsBytes, _ := json.Marshal(response)
+	// if statusCode != status.OK {
+	// 	if statusCode == status.INTERNALSERVERERROR {
+	// 		// notify admin with emails or others...
+	// 	}
+	// 	return errorResponse(message, statusCode)
+	// 	// return shim.Error(string(responseAsBytes))
+	// 	// return defaultResponse.Error(message, statusCode)
+	// }
+
+	return response(message, responseAsBytes, statusCode)
+	// return shim.Success(responseAsBytes)
+	// return defaultResponse.Success(message, payload, statusCode)
+}
+
+func response(message string, payload []byte, statusCode int32) Response {
 	response := Response{}
 	response.StatusCode = statusCode
 	response.Message = message
-	response.Result = args
-	responseAsBytes, _ := json.Marshal(response)
-	if statusCode != status.OK {
-		if statusCode == status.INTERNALSERVERERROR {
-			// notify admin with emails or others...
-		}
-		return shim.Error(string(responseAsBytes))
-		// return defaultResponse.Error(message, statusCode)
-	}
-
-	return shim.Success(responseAsBytes)
-	// return defaultResponse.Success(message, payload, statusCode)
+	response.Result = payload
+	return response
 }
