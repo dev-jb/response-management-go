@@ -28,7 +28,7 @@ func HandleResponse(message string, statusCode int32, args interface{}) Response
 	// response.StatusCode = statusCode
 	// response.Message = message
 	// response.Result = args
-	responseAsBytes, _ := json.Marshal(response)
+	responseAsBytes, _ := json.Marshal(args)
 	// if statusCode != status.OK {
 	// 	if statusCode == status.INTERNALSERVERERROR {
 	// 		// notify admin with emails or others...
