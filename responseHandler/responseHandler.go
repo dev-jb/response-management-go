@@ -28,7 +28,7 @@ func HandleResponse(message string, statusCode int32, args interface{}) Response
 	// response.StatusCode = statusCode
 	// response.Message = message
 	// response.Result = args
-	responseAsBytes, _ := json.Marshal(args)
+//	responseAsBytes, _ := json.Marshal(args)
 	// if statusCode != status.OK {
 	// 	if statusCode == status.INTERNALSERVERERROR {
 	// 		// notify admin with emails or others...
@@ -38,12 +38,12 @@ func HandleResponse(message string, statusCode int32, args interface{}) Response
 	// 	// return defaultResponse.Error(message, statusCode)
 	// }
 
-	return response(message, responseAsBytes, statusCode)
+	return response(message, args, statusCode)
 	// return shim.Success(responseAsBytes)
 	// return defaultResponse.Success(message, payload, statusCode)
 }
 
-func response(message string, payload []byte, statusCode int32) Response {
+func response(message string, payload interface{}, statusCode int32) Response {
 	response := Response{}
 	response.StatusCode = statusCode
 	response.Message = message
