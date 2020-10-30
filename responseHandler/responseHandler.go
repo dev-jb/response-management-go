@@ -19,7 +19,7 @@ type SuccessMessage struct {
 type Response struct {
 	StatusCode int32       `json:"statusCode,omitempty"`
 	Message    string      `json:"message,omitempty"`
-	Result     interface{} `json:"result,omitempty"`
+	Result     interface{} `json:"result,omitempty" metadata:",optional"`
 }
 
 // HandleResponse function to handle all the errors and success responses.
@@ -28,7 +28,7 @@ func HandleResponse(message string, statusCode int32, args interface{}) Response
 	// response.StatusCode = statusCode
 	// response.Message = message
 	// response.Result = args
-//	responseAsBytes, _ := json.Marshal(args)
+	//	responseAsBytes, _ := json.Marshal(args)
 	// if statusCode != status.OK {
 	// 	if statusCode == status.INTERNALSERVERERROR {
 	// 		// notify admin with emails or others...
