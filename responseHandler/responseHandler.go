@@ -1,5 +1,7 @@
 package responsehandler
 
+import "fmt"
+
 //import "encoding/json"
 
 //ErrorMessage Struct
@@ -37,16 +39,20 @@ func HandleResponse(message string, statusCode int32, args interface{}) Response
 	// 	// return shim.Error(string(responseAsBytes))
 	// 	// return defaultResponse.Error(message, statusCode)
 	// }
-
-	return response(message, args, statusCode)
+	response := Response{}
+	response.StatusCode = statusCode
+	response.Message = message
+	response.Result = args
+	fmt.Println("Response-->", response)
+	return response
 	// return shim.Success(responseAsBytes)
 	// return defaultResponse.Success(message, payload, statusCode)
 }
 
-func response(message string, payload interface{}, statusCode int32) Response {
-	response := Response{}
-	response.StatusCode = statusCode
-	response.Message = message
-	response.Result = payload
-	return response
-}
+// func response(message string, payload interface{}, statusCode int32) Response {
+// 	response := Response{}
+// 	response.StatusCode = statusCode
+// 	response.Message = message
+// 	response.Result = payload
+// 	return response
+// }
